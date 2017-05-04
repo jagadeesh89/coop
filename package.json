@@ -1,0 +1,28 @@
+{
+  "name": "coop",
+  "version": "1.0.0",
+  "description": "keep chickens in a row",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd server && nodemon server.js\" \"cd client && npm start\"",
+    "postinstall": "cd client && npm install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.2",
+    "morgan": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-rally": "0.0.1",
+    "rally": "^2.1.2",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "nodemon": "^1.11.0"
+  }
+}
