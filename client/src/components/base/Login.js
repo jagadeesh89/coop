@@ -3,9 +3,7 @@ import React from 'react';
 export class Login extends React.Component {
 
     login(){
-        fetch('/api/login').then((res) => {
-            console.log(res);
-        });
+        window.location.href = '/api/login';
     }
 
     render() {
