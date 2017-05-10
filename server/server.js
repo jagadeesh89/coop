@@ -1,6 +1,4 @@
-process.env.CLIENT_ID     = "df0a3ec5f65c4e5b852ec8585e2cd691";
-process.env.CLIENT_SECRET = "RqsjRUk2TBCBM8UJexLke6I4VnPE0wyiU4xn3AgwUo";
-process.env.SERVER_URL    = "http://localhost:8080";
+const configObj = require('./config/config.js');
 
 const express       = require('express');
 const morgan        = require('morgan');
@@ -16,11 +14,7 @@ var app = express();
 
 app.use(morgan('combined'));
 
-// app.use(function(req,res,next){
-//     res.setHeader('Access-Control-Allow-Origin', req.hostname);
-//     next();
-// });
-
+app.use(express.static(__dirname + '/../client/build'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -46,10 +40,10 @@ app.use(function(req,res,next){
     res.status(404).send('meow');
 });
 
-app.listen(8080, function(err){
+app.listen(process.env.coop_port, function(err){
     if(err){
         console.log('BORKED');
         return;
     }
-    console.log('Server Listening...');
+    console.log('Coop is Listening on port ' + process.env.coop_port);
 });

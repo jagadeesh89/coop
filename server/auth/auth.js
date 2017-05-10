@@ -12,9 +12,9 @@ module.exports = function(){
   });
 
   passport.use(new RallyStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: process.env.SERVER_URL + '/api/rally-callback',
+    clientID: process.env.coop_client_id,
+    clientSecret: process.env.coop_client_secret,
+    callbackURL: process.env.coop_server_name + ':' + process.env.coop_port + '/api/rally-callback',
     userAgent: 'nodejs-oauth-example',
     scope: 'alm',
   }, function (accessToken, refreshToken, profile, done) {
