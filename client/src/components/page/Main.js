@@ -1,8 +1,32 @@
 import React from 'react';
-import Navbar from './../general/Navbar.js';
+import Navbar from '../molecule/Navbar.js';
 import API from '../../Utilities/API.js';
+import SearchField from '../atom/SearchField';
 
-export class Main extends React.Component {
+const objectTypes = [
+    {
+        type: 'portfolioitem/initiative',
+        label: 'Initiative'
+    },
+    {
+        type: 'portfolioitem/epic',
+        label: 'Epic'
+    },
+    {
+        type: 'portfolioitem/feature',
+        label: 'Feature'
+    },
+    {
+        type: 'hierarchicalrequirement',
+        label: 'Story'
+    },
+    {
+        type: 'task',
+        label: 'Task'
+    }
+];
+
+export default class Main extends React.Component {
 
     constructor(){
         super();
@@ -10,11 +34,11 @@ export class Main extends React.Component {
         this.state = {};
     }
 
-    query(){
+    query(obj){
         this.setState({
             loading: true
         });
-        API.initiatives().then((res) => {
+        API.object(obj.type.type, obj.value).then((res) => {
             if(res.ok){
                 res.json().then((json) => {
                     console.log(json);
@@ -86,8 +110,10 @@ export class Main extends React.Component {
         return (
             <div>
                 <Navbar />
-                <div>
-                    <button className="btn btn-primary" onClick={() => this.query()}>Query</button>
+                <div className="row">
+                    <div className="col-xs-3 push-xs-1">
+                        <SearchField options={objectTypes} default={objectTypes[0]} onSearch={(obj) => this.query(obj)}/>
+                    </div>
                 </div>
                 {loadingBar}
                 {results}
