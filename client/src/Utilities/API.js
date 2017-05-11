@@ -31,13 +31,13 @@ class API {
         return promise;
     }
 
-    static initiatives(opts){
-        var promise = fetch('/api/initiative', this.mergeOptions(opts));
+    static object(type, id, opts){
+        var promise = fetch('/api/object/' + type + '/' + id, this.mergeOptions(opts));
         return promise;
     }
 
-    static initiativeChildren(id, opts){
-        var promise = fetch('/api/initiative/' + id + '/children', this.mergeOptions(opts));
+    static objectChildren(childType, parentId, opts){
+        var promise = fetch('/api/object/' + childType + '/' + parentId + '/children', this.mergeOptions(opts));
         return promise;
     }
 }

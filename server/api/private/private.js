@@ -1,5 +1,5 @@
 const express = require('express');
-const initiative = require('./initiative.js');
+const objects = require('./objects.js');
 
 var private = express.Router();
 
@@ -15,6 +15,6 @@ private.get('/user', function(req,res){
   });
 });
 
-private.use('/initiative', initiative);
+private.use('/object', objects);
 
 module.exports = private;
