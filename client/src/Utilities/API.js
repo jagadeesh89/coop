@@ -30,6 +30,16 @@ class API {
         var promise = fetch('/api/query', this.mergeOptions(opts));
         return promise;
     }
+
+    static initiatives(opts){
+        var promise = fetch('/api/initiative', this.mergeOptions(opts));
+        return promise;
+    }
+
+    static initiativeChildren(id, opts){
+        var promise = fetch('/api/initiative/' + id + '/children', this.mergeOptions(opts));
+        return promise;
+    }
 }
 
 export default API;

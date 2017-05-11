@@ -14,13 +14,49 @@ export class Main extends React.Component {
         this.setState({
             loading: true
         });
-        API.query().then((res) => {
-            res.json().then((json) => {
+        API.initiatives().then((res) => {
+            if(res.ok){
+                res.json().then((json) => {
+                    console.log(json);
+                    this.setState({
+                        queryResult: json,
+                        loading:false
+                    });
+                });
+            } else {
+                res.text().then((text) => {
+                    console.log(text);
+                });
                 this.setState({
-                    queryResult: json,
+                    queryResult: undefined,
                     loading:false
                 });
-            });
+            }
+        });
+    }
+
+    getChildren(obj){
+        this.setState({
+            loading: true
+        });
+        API.initiativeChildren(obj.FormattedID).then((res) => {
+            if(res.ok){
+                res.json().then((json) => {
+                    console.log(json);
+                    this.setState({
+                        queryResult: json,
+                        loading:false
+                    });
+                });
+            } else {
+                res.text().then((text) => {
+                    console.log(text);
+                });
+                this.setState({
+                    queryResult: undefined,
+                    loading:false
+                });
+            }
         });
     }
 
@@ -34,11 +70,14 @@ export class Main extends React.Component {
         ) : undefined;
 
         var results;
-        if(this.state.queryResult){
+        if(this.state.queryResult && ! this.state.loading){
             results = this.state.queryResult.map((obj, index) => {
                 return (
                     <div key={obj._ref}>
                         {obj.FormattedID}: {obj.Name} ({obj._type})
+                        <button onClick={()=> this.getChildren(obj)} className="btn btn-info">
+                            Find Children
+                        </button>
                     </div>
                 )
             });
