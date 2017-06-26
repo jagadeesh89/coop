@@ -36,8 +36,8 @@ class API {
         return promise;
     }
 
-    static objectChildren(childType, parentId, opts){
-        var promise = fetch('/api/object/' + encodeURIComponent(childType) + '/' + parentId + '/children', this.mergeOptions(opts));
+    static objectChildren(parentId, childType, opts){
+        var promise = fetch('/api/object/' +  parentId + '/children/' + encodeURIComponent(childType), this.mergeOptions(opts));
         return promise;
     }
 }

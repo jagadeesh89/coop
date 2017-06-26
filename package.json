@@ -8,7 +8,7 @@
     "start": "concurrently \"cd server && nodemon server.js\" \"cd client && npm start\"",
     "postinstall": "cd client && npm install && cd ../scripts && node createConfig.js",
     "predeploy": "cd client && npm run build",
-    "deploy":"node server/server.js"
+    "deploy": "node server/server.js"
   },
   "author": "",
   "license": "ISC",
