@@ -1,30 +1,42 @@
 const array = [
     {
         type: 'portfolioitem/initiative',
-        label: 'Initiative'
+        label: 'Initiative',
+        child: 'portfolioitem/epic',
+        color: 'default'
     },
     {
         type: 'portfolioitem/epic',
-        label: 'Epic'
+        label: 'Epic',
+        child: 'portfolioitem/feature',
+        color: 'primary'
     },
     {
         type: 'portfolioitem/feature',
-        label: 'Feature'
+        label: 'Feature',
+        child: 'hierarchicalrequirement',
+        color: 'warning'
     },
     {
         type: 'hierarchicalrequirement',
-        label: 'Story'
+        label: 'Story',
+        child: 'task',
+        color: 'info'
     },
     {
         type: 'task',
-        label: 'Task'
+        label: 'Task',
+        color: 'success'
     }
 ];
 
 const ObjectsMap = {}; //build map from the array so there is one truth to change
 for(let obj of array){
-    ObjectsMap[obj.label] = obj.type;
-    ObjectsMap[obj.type] = obj.label;
+    ObjectsMap[obj.label] = obj;
+    ObjectsMap[obj.type] = obj;
 }
 
-export {ObjectsMap as default, array as ObjectsArray};
+export {
+    ObjectsMap as default, 
+    array as ObjectsArray
+};

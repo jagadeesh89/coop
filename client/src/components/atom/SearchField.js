@@ -45,7 +45,7 @@ export default class SearchField extends React.Component {
         return (
             <div className="input-group">
                 <div className={'input-group-btn' + (this.state.optionsOpen ? ' open' : '')}>
-                    <button type="button" className="btn btn-default dropdown-toggle" onClick={this.toggleOptionsOpen.bind(this)}>{this.state.type.label}<span className="caret"></span></button>
+                    <button type="button" className="btn btn-default dropdown-toggle" onClick={this.toggleOptionsOpen.bind(this)}>{this.state.type.label} <span className="caret"></span></button>
                     <ul className="dropdown-menu">
                         {options}
                     </ul>

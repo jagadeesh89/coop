@@ -74,9 +74,11 @@ export default class Main extends React.Component {
 
     render() {
         var loadingBar = this.state.loading ? (
-            <div className="progress">
-                <div className="progress-bar progress-bar-striped active" style={{width:'100%'}}>
-                    <span className="sr-only">Loading...</span>
+            <div className="col-xs-12">
+                <div className="progress">
+                    <div className="progress-bar progress-bar-striped active" style={{width:'100%'}}>
+                        <span className="sr-only">Loading...</span>
+                    </div>
                 </div>
             </div>
         ) : undefined;
@@ -85,7 +87,9 @@ export default class Main extends React.Component {
         if(this.state.queryResult && ! this.state.loading){
             results = this.state.queryResult.map((obj, index) => {
                 return (
-                    <RallyObject key={obj._ref} item={obj}/>
+                    <div className="col-xs-8" key={obj._ref}>
+                        <RallyObject item={obj}/>
+                    </div>
                 )
             });
         }
@@ -99,8 +103,14 @@ export default class Main extends React.Component {
                             <SearchField options={ObjectsArray} default={ObjectsArray[0]} onSearch={(obj) => this.query(obj)}/>
                         </div>
                     </div>
-                    {loadingBar}
-                    {results}
+                    <br>
+                    </br>
+                    <div className="row">
+                        {loadingBar}
+                    </div>
+                    <div className="row">
+                        {results}
+                    </div>
                 </div>
             </div>  
         );
