@@ -20,9 +20,16 @@ export default class ScheduleView extends React.Component {
             }
         }
         this.state = initialState;
+
+        this.moveUp = this.moveUp.bind(this);
+        this.moveDown = this.moveDown.bind(this);
+        this.moveChildUp = this.moveChildUp.bind(this);
+        this.moveChildDown = this.moveChildDown.bind(this);
     }
 
     findChildren(parentId, childType){
+        const state = Object.assign(this.state, {loadingChildren: true});
+        this.setState(state);
         API.objectChildren(parentId, childType).then((res) => {
             if(res.ok){
                 res.json().then((json) => {
@@ -40,7 +47,49 @@ export default class ScheduleView extends React.Component {
         });
     }
 
+    moveUp(){
+        if(this.props.moveUp){
+            this.props.moveUp(this.props.index);
+        }
+    }
+
+    moveDown(){
+        if(this.props.moveDown){
+            this.props.moveDown(this.props.index);
+        }
+    }
+
+    moveChildUp(index){
+        if(index > 0){
+            let children = this.state.children.slice();
+            let removed = children.splice(index - 1, 1)[0];
+            children.splice(index, 0, removed);
+            let state = Object.assign(this.state, {children: children});
+            this.setState(state);
+        }
+    }
+
+    moveChildDown(index){
+        if(index < this.state.children.length - 1){
+            let children = this.state.children.slice();
+            let removed = children.splice(index, 1)[0];
+            children.splice(index + 1, 0, removed);
+            let state = Object.assign(this.state, {children: children});
+            this.setState(state);
+        }
+    }
+
     render() {
+
+        let order;
+
+        if(!isNaN(this.props.index)){
+            order = <p>
+                <button className="btn btn-default btn-sm" type="button" onClick={this.moveUp}>/\</button>
+                {' ' + (this.props.index + 1) + ' '}
+                <button className="btn btn-default btn-sm" type="button" onClick={this.moveDown}>\/</button>
+            </p>
+        }
 
         let children;
         if(this.state.loadingChildren){
@@ -48,7 +97,7 @@ export default class ScheduleView extends React.Component {
         } else {
             if(this.state.children && this.state.children.length > 0){
                 children = this.state.children.map((item, index) => {
-                    return <ScheduleView key={item._ref} item={item} />
+                    return <ScheduleView key={item._ref} item={item} width="4" index={index} moveUp={this.moveChildUp} moveDown={this.moveChildDown}/>
                 });
             } else if(this.state.parentId && this.state.childType){
                 children = <button className="btn btn-info" type="button" onClick={() => this.findChildren(this.state.parentId,this.state.childType)}>Expand</button>
@@ -56,10 +105,13 @@ export default class ScheduleView extends React.Component {
         }
 
         return (
-            <div className="panel panel-default">
-                <div className="panel-body">
-                    <RallyObject item={this.props.item} />
-                    {children}
+            <div className={'col-xs-' + (this.props.width && !(this.state.children && this.state.children.length > 0) ? this.props.width : '12')}>
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        {order}
+                        <RallyObject item={this.props.item} />
+                        {children}
+                    </div>
                 </div>
             </div>
         );

@@ -85,9 +85,7 @@ export default class Main extends React.Component {
         if(this.state.queryResult && ! this.state.loading){
             results = this.state.queryResult.map((obj, index) => {
                 return (
-                    <div className="col-xs-12" key={obj._ref}>
-                        <ScheduleView item={obj}/>
-                    </div>
+                    <ScheduleView key={obj._ref} item={obj} width="12"/>
                 )
             });
         }
