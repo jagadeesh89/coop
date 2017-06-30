@@ -4,8 +4,7 @@ import Loading from '../atom/Loading';
 import API from '../../Utilities/API';
 import ObjectMap from '../../Utilities/Objects';
 
-export default class HeiarchyExplorer extends React.Component {
-
+export default class ScheduleView extends React.Component {
 
     constructor(props){
         super(props);
@@ -14,8 +13,10 @@ export default class HeiarchyExplorer extends React.Component {
             const parentId = props.item.FormattedID;
             const childType = ObjectMap[props.item._type.toLowerCase()].childType;
             if(childType){
-                initialState.loadingChildren = true;
-                this.findChildren(parentId, childType);
+                // initialState.loadingChildren = true;
+                // this.findChildren(parentId, childType);
+                initialState.parentId = parentId;
+                initialState.childType = childType;
             }
         }
         this.state = initialState;
@@ -47,8 +48,10 @@ export default class HeiarchyExplorer extends React.Component {
         } else {
             if(this.state.children && this.state.children.length > 0){
                 children = this.state.children.map((item, index) => {
-                    return <HeiarchyExplorer key={item._ref} item={item} />
+                    return <ScheduleView key={item._ref} item={item} />
                 });
+            } else if(this.state.parentId && this.state.childType){
+                children = <button className="btn btn-info" type="button" onClick={() => this.findChildren(this.state.parentId,this.state.childType)}>Expand</button>
             }
         }
 

@@ -30,8 +30,8 @@ objects.get('/:parentId/children/:childType', function(req,res){
   restApi.query({
     type: req.params.childType, //the type to query
     start: 1, //the 1-based start index, defaults to 1
-    limit: 2, //the maximum number of results to return- enables auto paging
-    fetch: ['FormattedID', 'Name', 'Children'],
+    limit: Infinity, //the maximum number of results to return- enables auto paging
+    fetch: ['FormattedID', 'Name', 'Children', 'Parent'],
     query: queryUtils.where('Parent.FormattedID', '=', req.params.parentId)
   }, function(err,result){
     if(err){

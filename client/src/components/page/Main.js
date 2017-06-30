@@ -3,7 +3,7 @@ import Navbar from '../molecule/Navbar.js';
 import API from '../../Utilities/API.js';
 import SearchField from '../atom/SearchField';
 import {ObjectsArray} from '../../Utilities/Objects.js';
-import RallyObject from '../atom/RallyObject';
+import ScheduleView from '../molecule/ScheduleView';
 export default class Main extends React.Component {
 
     constructor(){
@@ -19,7 +19,6 @@ export default class Main extends React.Component {
         API.object(obj.type.type, obj.value).then((res) => {
             if(res.ok){
                 res.json().then((json) => {
-                    console.log(json);
                     this.setState({
                         queryResult: json,
                         loading:false
@@ -44,7 +43,6 @@ export default class Main extends React.Component {
         API.objectChildren(obj.FormattedID, obj.Children._type).then((res) => {
             if(res.ok){
                 res.json().then((json) => {
-                    console.log(json);
                     this.setState({
                         queryResult: json,
                         loading:false
@@ -87,8 +85,8 @@ export default class Main extends React.Component {
         if(this.state.queryResult && ! this.state.loading){
             results = this.state.queryResult.map((obj, index) => {
                 return (
-                    <div className="col-xs-8" key={obj._ref}>
-                        <RallyObject item={obj}/>
+                    <div className="col-xs-12" key={obj._ref}>
+                        <ScheduleView item={obj}/>
                     </div>
                 )
             });

@@ -2,25 +2,24 @@ const array = [
     {
         type: 'portfolioitem/initiative',
         label: 'Initiative',
-        child: 'portfolioitem/epic',
+        childType: 'portfolioitem/epic',
         color: 'default'
     },
     {
         type: 'portfolioitem/epic',
         label: 'Epic',
-        child: 'portfolioitem/feature',
+        childType: 'portfolioitem/feature',
         color: 'primary'
     },
     {
         type: 'portfolioitem/feature',
         label: 'Feature',
-        child: 'hierarchicalrequirement',
+        childType: 'hierarchicalrequirement',
         color: 'warning'
     },
     {
         type: 'hierarchicalrequirement',
         label: 'Story',
-        child: 'task',
         color: 'info'
     },
     {
